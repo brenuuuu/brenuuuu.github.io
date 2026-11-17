@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breno Oliveira · Desenvolvedor back-end</title>
+<meta name="description" content="Portfólio de Breno Oliveira, desenvolvedor back-end em formação (Java, Spring Boot, SQL).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marmore: #EEF0EE;
+    --granito: #1C2421;
+    --ubatuba: #2E5E4E;
+    --quartzo: #6F8279;
+    --ocre:    #D2A443;
+    --linha:   #CFD6D2;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --texto:   "IBM Plex Sans", system-ui, sans-serif;
+    --mono:    "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--marmore);
+    color: var(--granito);
+    font: 400 1.0625rem/1.6 var(--texto);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ubatuba); text-underline-offset: 3px; }
+  a:hover { color: var(--granito); }
+  :focus-visible { outline: 3px solid var(--ocre); outline-offset: 3px; border-radius: 2px; }
+
+  .container { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+
+  /* Cabeçalho */
+  .topo { display: flex; justify-content: space-between; align-items: center; padding-block: 1.5rem; }
+  .marca { font: 700 1.125rem var(--display); color: var(--granito); text-decoration: none; }
+  .topo nav { display: flex; gap: 1.5rem; }
+  .topo nav a { color: var(--granito); text-decoration: none; font-weight: 500; }
+  .topo nav a:hover { color: var(--ubatuba); text-decoration: underline; }
+
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 4rem;
+    align-items: center;
+    padding-block: 4rem 6rem;
+  }
+  .hero > * { min-width: 0; }
+  .hero h1 {
+    font: 700 clamp(2.75rem, 6vw, 4.75rem)/0.98 var(--display);
+    letter-spacing: -0.03em;
+    margin: 0 0 1.5rem;
+  }
+  .hero p { max-width: 34rem; margin: 0 0 1rem; font-size: 1.1875rem; }
+  .hero .apoio { color: var(--quartzo); font-size: 1rem; }
+  .acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+  .botao {
+    display: inline-block; padding: .75rem 1.25rem; border-radius: 6px;
+    font-weight: 500; text-decoration: none;
+    background: var(--granito); color: var(--marmore);
+  }
+  .botao:hover { background: var(--ubatuba); color: var(--marmore); }
+  .botao.leve { background: transparent; color: var(--granito); box-shadow: inset 0 0 0 1.5px var(--granito); }
+  .botao.leve:hover { background: var(--granito); color: var(--marmore); }
+
+  /* A "chapa" de granito: uma chamada real à API do projeto */
+  .chapa {
+    position: relative;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0/23px 19px,
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,.04) 0 1px, transparent 2px) 0 0/31px 27px,
+      linear-gradient(160deg, #24302B 0%, #18201D 100%);
+    color: #DCE4DF;
+    margin: 0;
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem 1.75rem;
+    font: 400 .875rem/1.7 var(--mono);
+    min-height: 18rem;
+    box-shadow: 0 30px 60px -30px rgba(28,36,33,.55);
+  }
+  .chapa .pedido { color: #fff; margin: 0 0 .25rem; white-space: nowrap; overflow-x: auto; }
+  .chapa .pedido b { color: var(--ocre); font-weight: 500; }
+  .chapa .status { color: #8FBFA8; margin: 0 0 1rem; }
+  .chapa pre { margin: 0; white-space: pre-wrap; font: inherit; }
+  .chapa .k { color: #A9BDB3; }
+  .chapa .n { color: var(--ocre); }
+  .chapa .s { color: #E7EEE9; }
+  .chapa .neg { color: #E59A7F; }
+  .chapa figcaption {
+    position: absolute; left: 1.75rem; bottom: -2.25rem;
+    font: 400 .8125rem var(--texto); color: var(--quartzo);
+  }
+  .cursor { display: inline-block; width: .55em; background: #8FBFA8; animation: pisca 1s steps(1) infinite; }
+  @keyframes pisca { 50% { opacity: 0; } }
+
+  /* Seções */
+  section { padding-block: 5rem; border-top: 1px solid var(--linha); }
+  h2 {
+    font: 700 clamp(1.75rem, 3.2vw, 2.5rem)/1.1 var(--display);
+    letter-spacing: -0.02em;
+    margin: 0 0 2.5rem;
+  }
+
+  /* Projetos como linhas, não cards */
+  .projeto {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr auto;
+    gap: 2rem;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--linha);
+  }
+  .projeto:first-of-type { padding-top: 0; }
+  .projeto h3 { font: 700 1.5rem/1.2 var(--display); margin: 0 0 .5rem; }
+  .projeto .stack { color: var(--quartzo); font-size: .9375rem; margin: 0; }
+  .projeto p { margin: 0 0 .75rem; max-width: 36rem; }
+  .projeto ul { margin: 0; padding-left: 1.1rem; color: #3D4A45; }
+  .projeto li { margin-bottom: .25rem; }
+  .projeto .links { display: flex; flex-direction: column; gap: .5rem; white-space: nowrap; }
+
+  /* Sobre */
+  .sobre { display: grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; }
+  .sobre p { max-width: 36rem; margin: 0 0 1rem; }
+  .ferramentas h3 { font: 500 1rem var(--texto); color: var(--quartzo); margin: 0 0 .75rem; }
+  .ferramentas ul { list-style: none; margin: 0 0 2rem; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .ferramentas li {
+    padding: .3rem .75rem; border-radius: 4px;
+    background: #fff; box-shadow: inset 0 0 0 1px var(--linha); font-size: .9375rem;
+  }
+  .ferramentas li.estudando { background: transparent; box-shadow: inset 0 0 0 1px var(--linha); color: var(--quartzo); }
+
+  /* Contato */
+  .contato p { max-width: 36rem; margin: 0 0 2rem; font-size: 1.1875rem; }
+  footer { padding-block: 2.5rem; color: var(--quartzo); font-size: .875rem; border-top: 1px solid var(--linha); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 3rem; padding-block: 2rem 5rem; }
+    .chapa { min-height: 0; padding: 1.25rem; font-size: .75rem; }
+    .chapa figcaption { left: 0; bottom: -3rem; }
+    .projeto { grid-template-columns: 1fr; gap: 1rem; }
+    .projeto .links { flex-direction: row; gap: 1.25rem; }
+    .sobre { grid-template-columns: 1fr; gap: 2rem; }
+    .topo nav { gap: 1rem; font-size: .9375rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="container topo">
+  <a class="marca" href="#">Breno Oliveira</a>
+  <nav aria-label="Seções">
+    <a href="#projetos">Projetos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<main>
+  <div class="container hero">
+    <div>
+      <h1>Aprendendo a construir o que roda por trás do sistema.</h1>
+      <p>Sou estudante e desenvolvedor back-end em formação. Trabalho no financeiro de uma empresa de pedras e revestimentos em São Paulo e uso o que vejo lá como ideia para os meus projetos.</p>
+      <p class="apoio">Análise e Desenvolvimento de Sistemas na UNICID, conclusão em 2027. Procurando estágio ou vaga júnior.</p>
+      <div class="acoes">
+        <a class="botao" href="#projetos">Ver projetos</a>
+        <a class="botao leve" href="https://github.com/brenuuuu">GitHub</a>
+      </div>
+    </div>
+
+    <figure class="chapa" aria-label="Exemplo de resposta da minha API financeira">
+      <p class="pedido"><b>GET</b> /api/resumo?inicio=2026-11-01&amp;fim=2026-11-30</p>
+      <p class="status">200 OK</p>
+      <pre id="resposta"></pre>
+      <figcaption>Exemplo de resposta da <a href="https://github.com/brenuuuu/api-financeira">API Financeira</a>, um dos meus projetos.</figcaption>
+    </figure>
+  </div>
+
+  <section id="projetos">
+    <div class="container">
+      <h2>Projetos</h2>
+
+      <article class="projeto">
+        <div>
+          <h3>API Financeira</h3>
+          <p class="stack">Java 17, Spring Boot, JPA, H2, JUnit</p>
+        </div>
+        <div>
+          <p>API REST de contas a pagar e a receber, inspirada na minha rotina no financeiro.</p>
+          <ul>
+            <li>Cadastro de categorias e de contas a pagar e a receber</li>
+            <li>Status automático: pendente, pago ou atrasado</li>
+            <li>Resumo do período com receitas, despesas e saldo</li>
+            <li>Testes com JUnit rodando no GitHub Actions</li>
+          </ul>
+        </div>
+        <div class="links">
+          <a href="https://github.com/brenuuuu/api-financeira">Código no GitHub</a>
+        </div>
+      </article>
+
+      <article class="projeto">
+        <div>
+          <h3>Banco de dados de uma loja de revestimentos</h3>
+          <p class="stack">PostgreSQL</p>
+        </div>
+        <div>
+          <p>Tabelas de vendas, estoque e contas a receber, com consultas que respondem perguntas do dia a dia da loja.</p>
+          <ul>
+            <li>Faturamento por mês, produtos mais vendidos e comissão de vendedores</li>
+            <li>Clientes com parcelas atrasadas e valores a receber</li>
+            <li>Produtos com estoque abaixo do mínimo</li>
+          </ul>
+        </div>
+        <div class="links">
+          <a href="https://github.com/brenuuuu/sql-loja-revestimentos">Código no GitHub</a>
+        </div>
+      </article>
+
+      <article class="projeto">
+        <div>
+          <h3>Dicionário de dados: Gestão Inteligente</h3>
+          <p class="stack">HTML, modelagem de dados</p>
+        </div>
+        <div>
+          <p>Documentação das tabelas e campos de um sistema para uma corretora de seguros, feita em grupo na faculdade.</p>
+        </div>
+        <div class="links">
+          <a href="https://github.com/brenuuuu/dicionario-dados-gestao-inteligente">Código no GitHub</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="container sobre">
+      <div>
+        <h2>Sobre mim</h2>
+        <p>Comecei na programação pela faculdade de Análise e Desenvolvimento de Sistemas. Escolhi o back-end porque gosto da parte que ninguém vê: regras de negócio, dados consistentes e números que fecham.</p>
+        <p>No trabalho, cuido de notas fiscais, contas a pagar e receber e da medição financeira de obras. Isso me ajuda a entender o problema de quem vai usar o sistema antes de começar a programar.</p>
+      </div>
+      <div class="ferramentas">
+        <h3>Uso no dia a dia</h3>
+        <ul>
+          <li>Java</li><li>SQL</li><li>PostgreSQL</li><li>Git e GitHub</li><li>HTML e CSS</li><li>Power BI</li>
+        </ul>
+        <h3>Estudando agora</h3>
+        <ul>
+          <li class="estudando">Spring Boot</li><li class="estudando">APIs REST</li><li class="estudando">Testes com JUnit</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="contato">
+    <div class="container">
+      <h2>Vamos conversar</h2>
+      <p>Estou procurando estágio ou vaga júnior em back-end, presencial ou remoto em São Paulo. Se quiser falar sobre uma vaga ou um projeto, me chame.</p>
+      <div class="acoes">
+        <a class="botao" href="https://github.com/brenuuuu">Falar pelo GitHub</a>
+        <!-- Adicione aqui seu LinkedIn e e-mail:
+        <a class="botao leve" href="https://www.linkedin.com/in/SEU-USUARIO">LinkedIn</a>
+        <a class="botao leve" href="mailto:seuemail@exemplo.com">E-mail</a>
+        -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">Feito em HTML, CSS e JavaScript, sem frameworks. Publicado no GitHub Pages.</div>
+</footer>
+
+<script>
+  // Escreve a resposta da API na "chapa", linha por linha (uma única animação na página)
+  const resposta = [
+    ['{', ''],
+    ['  "inicio": ', 's', '"2026-11-01"', ','],
+    ['  "fim": ', 's', '"2026-11-30"', ','],
+    ['  "totalReceitas": ', 'n', '34100.00', ','],
+    ['  "totalDespesas": ', 'n', '34600.00', ','],
+    ['  "saldo": ', 'neg', '-500.00', ','],
+    ['  "emAtraso": ', 'neg', '25200.00', ''],
+    ['}', '']
+  ];
+  function linhaHTML(l) {
+    const [chave, classe, valor, resto] = l;
+    if (!classe) return `<span class="k">${chave}</span>`;
+    return `<span class="k">${chave}</span><span class="${classe}">${valor}</span>${resto}`;
+  }
+
+  const alvo = document.getElementById('resposta');
+  const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (semMovimento) {
+    alvo.innerHTML = resposta.map(linhaHTML).join('\n');
+  } else {
+    let i = 0;
+    const passo = () => {
+      alvo.innerHTML = resposta.slice(0, i + 1).map(linhaHTML).join('\n') +
+        (i < resposta.length - 1 ? ' <span class="cursor">&nbsp;</span>' : '');
+      if (++i < resposta.length) setTimeout(passo, 110);
+    };
+    setTimeout(passo, 500);
+  }
+</script>
+</body>
+</html>
